@@ -1,0 +1,114 @@
+Bordado
+---
+- FormaBordado: String[][]
+- atualizaçoes : String[]  //  array que guarda a representação do bordado antes de cada processamento
+- contadorProcessamentos : int
+---
++ Bordado(pontosBordado : int[][])
++ exibeBordado(): String
++ getPontosBordado() : String[][]    // fornece o formato do bordado para que os robos possam atuar
++ processa(bordado : String[][]) : void    //  devolve o bordado processado
++ incrementaProcessamento() : void  // metodo para incrementar a quantidade de vezes que o bordado foi processado
++ getContadorProcessamentos(): int
++ recuperaEstado( posiçaoDaAtualizaçao : int) : String   //   exibe como estava o bordado antes da posiçao passada como parametro
++ toString() : String
+
+---
+
+
+FarBorController
+composes Bordado, Maquina<Interface>
+---
+- RobosCadastrados : Map< String, Maquina>
+- linhaDeProduçao : Maquina[]
+- bordados: Map< Integer, Bordado>
+---
++ cadastrarBordado( altura : int, largura : int) : int
++ listaBordado( idBordado : int) : String
++ cadastrarRoboLimpador( codigo:String) : void  // peso,açao,custo definidos dentro de cada metodo
++ cadastrarRoboBorda( codigo : String) : void
++ cadastrarRoboRetangulo( codigo : String, pontoX1: int, pontoY1: int, pontoX2: int, ponto Y2:int) : void
++ cadastrarRoboPonto( codigo : String, pontoX: int, pontoY: int): void
++ adicionarRoboLinhaDeProduçao( posiçaoRobo : int, idRobo : String): boolean
++ processarBordado( idBordado: int) : double
++ pegaPeso() : int
++ apagaRobo( codigoRobo : String) : void
++ obterEstadoBordado( idBordado : int, processamento : int) : String 
+---
+
+
+Maquina<Interface>
+---
+---
++ getPeso(): int
++ processaBordado(idBordado: int): void
+---
+
+Robo<Abstract>
+implements Maquina<Interface>
+---
+- codigo : String
+- peso : int
+- açao : String 
+- custo : double
+---
++ Robo(codigo : String, peso : int, açao: String , custo: double)
++ getCodigo() : String
++ getPeso() : int
++ getAçao(): String
++ getCusto(): double
++ toString() : String
+---
+
+RoboLimpador
+extends Robo<Abstract>
+---
+---
++ RoboLimpador( codigo : String)
++ getPeso(): int
++ processaBordado(idBordado: int): void
+---
+
+RoboBorda
+extends Robo<Abstract>
+---
+---
++ RoboBorda( codigo : String)
++ getPeso(): int
++ processaBordado(idBordado: int): void
+---
+
+RoboRetangulo
+extends Robo<Abstract>
+---
+- pontoX1: int
+- pontoY1: int
+- pontoX2: int
+- pontoY2: int
+---
++ RoboRetangulo( codigo : String, pontoX1 : int, pontoY1: int , pontoX2: int , pontoY2: int)
++ getPeso(): int
++ processaBordado(idBordado: int): void
+---
+
+RoboPonto
+extends Robo<Abstract>
+---
+- pontoX : int
+- pontoY : int
+---
++ RoboPonto( codigo : String, pontoX: int, pontoY: int)
++ getPeso(): int
++ processaBordado(idBordado: int): void
+---
+
+Main
+association FarBorController
+---
+---
+---
+
+
+
+
+
